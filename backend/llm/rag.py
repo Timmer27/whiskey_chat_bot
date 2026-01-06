@@ -107,7 +107,6 @@ def generate_answer(
 ) -> tuple[str, list[dict], list[str]]:
     ctxs = retrieve(qdrant=qdrant, embedder=embedder, question=question)
     prompt = _build_prompt(question, ctxs)
-    prompt = "당신은 위스키를 전문적으로 추천 및 분석하는 AI 어시스턴트입니다."
 
     resp = llm.chat.completions.create(
         model=model,

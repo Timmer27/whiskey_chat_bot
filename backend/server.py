@@ -56,11 +56,12 @@ def health():
 
 @app.post("/chat/whiskey")
 def chat(body: ChatRequest, request: Request):
+    model="llama-3.1-8b-instant"
     ans, ctxs, ctx_texts = generate_answer(
         qdrant=request.app.state.qdrant,
         embedder=request.app.state.embedder,
         llm=request.app.state.llm,
         question=body.question,
-        model="llama-3.1-8b-instant",
+        model=model,
     )
     return ans
