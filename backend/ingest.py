@@ -14,7 +14,7 @@ def main():
     p.add_argument("--csv", default="data/whisky_reviews.csv", help="Path to CSV file")
     p.add_argument("--collections", default="whisky_reviews", help="Qdrant collection name")
     p.add_argument("--reset", action="store_true", help="If set, delete & recreate the collection")
-    p.add_argument("--reset_only", action="store_true", help="Reset collection and exit")  # ✅ 추가
+    p.add_argument("--reset_only", action="store_true", help="Reset collection and exit")
     p.add_argument("--qdrant_url", default=DEFAULT_QDRANT_URL, help="Qdrant URL")
     p.add_argument("--embed_model", default=DEFAULT_EMBED_MODEL, help="SentenceTransformer model name/path")
     p.add_argument("--batch_size", type=int, default=DEFAULT_BATCH_SIZE, help="Upsert batch size")

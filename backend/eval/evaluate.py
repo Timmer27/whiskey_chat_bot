@@ -31,7 +31,7 @@ class GroqChatLLM(DeepEvalBaseLLM):
     """
     def __init__(
         self,
-        model_name: str = "llama-3.3-70b-versatile",  # ✅ judge는 70B 권장(8B는 JSON 자주 깨짐)
+        model_name: str = "llama-3.3-70b-versatile",
         api_key: Optional[str] = None,
         base_url: str = "https://api.groq.com/openai/v1",
         max_tokens: int = 900,
@@ -79,7 +79,6 @@ class GroqChatLLM(DeepEvalBaseLLM):
             {"role": "user", "content": prompt},
         ]
 
-        # ✅ DeepEval이 schema를 주는 경우: JSON 모드로 강제
         if schema is not None:
             # 1) JSON mode (valid JSON) :contentReference[oaicite:3]{index=3}
             try:
@@ -105,7 +104,6 @@ class GroqChatLLM(DeepEvalBaseLLM):
                 data2 = json.loads(json_str2)
                 return schema(**data2)
 
-        # ✅ schema가 없으면 그냥 텍스트 반환(일부 metric에서 사용)
         resp = self._call_chat(messages, response_format=None, temperature=0.0)
         return (resp.choices[0].message.content or "").strip()
 
@@ -150,10 +148,9 @@ class GroqDeepEvalLLM(DeepEvalBaseLLM):
                 {"role": "user", "content": prompt},
             ],
             temperature=self.temperature,
-            max_completion_tokens=self.max_completion_tokens,  # ✅ Groq 권장
+            max_completion_tokens=self.max_completion_tokens,
         )
 
-        # ✅ JSON Object Mode (필요 시)
         if self.use_json_object_mode:
             kwargs["response_format"] = {"type": "json_object"}
 
